@@ -45,6 +45,7 @@ cfg-if = "1.0"
 clap = { version = "4", "default-features" = false, "features" = ["std", "cargo", "derive", "error-context", "help", "suggestions", "usage", "wrap_help"] }
 hostname = "0.4.0"
 ipnetwork = ">= 0.17, < 0.22"
+libazureinit = "0.1.1"
 libflate = "2.1"
 libsystemd = ">= 0.2.1, < 0.8.0"
 mailparse = ">= 0.13, < 0.17"
