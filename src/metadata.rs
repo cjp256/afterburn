@@ -35,6 +35,8 @@ use crate::providers::packet::PacketProvider;
 use crate::providers::powervs::PowerVSProvider;
 use crate::providers::proxmoxve;
 use crate::providers::scaleway::ScalewayProvider;
+#[cfg(feature = "cl-legacy")]
+use crate::providers::vagrant_virtualbox::VagrantVirtualboxProvider;
 use crate::providers::vmware::VmwareProvider;
 use crate::providers::vultr::VultrProvider;
 
@@ -60,6 +62,10 @@ pub fn fetch_metadata(provider: &str) -> Result<Box<dyn providers::MetadataProvi
         "cloudstack-configdrive" => box_result!(ConfigDrive::try_new()?),
         "digitalocean" => box_result!(DigitalOceanProvider::try_new()?),
         "exoscale" => box_result!(ExoscaleProvider::try_new()?),
+        #[cfg(feature = "cl-legacy")]
+        "ec2" => box_result!(AwsProvider::try_new()?),
+        #[cfg(feature = "cl-legacy")]
+        "gce" => box_result!(GcpProvider::try_new()?),
         "gcp" => box_result!(GcpProvider::try_new()?),
         "hetzner" => box_result!(HetznerProvider::try_new()?),
         // IBM Cloud - VPC Generation 2.
@@ -73,6 +79,8 @@ pub fn fetch_metadata(provider: &str) -> Result<Box<dyn providers::MetadataProvi
         "powervs" => box_result!(PowerVSProvider::try_new()?),
         "proxmoxve" => proxmoxve::try_config_drive_else_leave(),
         "scaleway" => box_result!(ScalewayProvider::try_new()?),
+        #[cfg(feature = "cl-legacy")]
+        "vagrant-virtualbox" => box_result!(VagrantVirtualboxProvider::new()),
         "vmware" => box_result!(VmwareProvider::try_new()?),
         "vultr" => box_result!(VultrProvider::try_new()?),
         _ => bail!("unknown provider '{}'", provider),

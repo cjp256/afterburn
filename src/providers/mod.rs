@@ -41,6 +41,8 @@ pub mod packet;
 pub mod powervs;
 pub mod proxmoxve;
 pub mod scaleway;
+#[cfg(feature = "cl-legacy")]
+pub mod vagrant_virtualbox;
 pub mod vmware;
 pub mod vultr;
 

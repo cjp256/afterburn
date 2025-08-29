@@ -30,14 +30,20 @@ name = "afterburn"
 path = "src/main.rs"
 
 [profile.release]
-# We assume we're being delivered via e.g. RPM which supports split debuginfo
-debug = true
+# Flatcar: Reduce binary size for prod images by using one codegen unit,
+# stripping binary, and removing debug = true.
+codegen-units = 1
+strip = true
+
+[features]
+cl-legacy = []
 
 [dependencies]
 anyhow = "1.0"
 base64 = "0.22"
 cfg-if = "1.0"
 clap = { version = "4", "default-features" = false, "features" = ["std", "cargo", "derive", "error-context", "help", "suggestions", "usage", "wrap_help"] }
+hostname = "0.4.0"
 ipnetwork = ">= 0.17, < 0.22"
 libflate = "2.1"
 libsystemd = ">= 0.2.1, < 0.8.0"
